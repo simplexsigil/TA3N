@@ -59,6 +59,9 @@ if args.dataset == 'hmdb51' or args.dataset == 'ucf101':
 elif 'unlabeled' in args.dataset:
 	class_id = [-1]  # number shown in th text file
 	class_names = ['unlabeled']
+elif 'Sims4Action' in args.dataset:
+        class_names = ('Cook', 'Drink', 'Eat', 'GetupSitdown', 'Readbook', 'Usecomputer', 'Usephone', 'Usetablet', 'Walk', 'WatchTV')
+        class_id = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
 
 elif 'ps' in args.dataset or 'kinetics' in args.dataset or 'phav' in args.dataset or 'olympic' in args.dataset:
 # 	if 'ps_' in args.dataset:

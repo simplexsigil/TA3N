@@ -17,7 +17,11 @@ import torchvision.transforms as transforms
 from torch.autograd import Variable
 from PIL import Image
 
-imageio.plugins.ffmpeg.download()
+import os
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+
+# imageio.plugins.ffmpeg.download()
 init(autoreset=True)
 
 ###### Flags ######
@@ -25,7 +29,7 @@ parser = argparse.ArgumentParser(description='Dataset Preparation')
 parser.add_argument('--data_path', type=str, required=False, default='', help='source path')
 parser.add_argument('--video_in', type=str, required=False, default='RGB', help='name of input video dataset')
 parser.add_argument('--feature_in', type=str, required=False, default='RGB-feature', help='name of output frame dataset')
-parser.add_argument('--input_type', type=str, default='video', choices=['video', 'frames'], help='input types for videos')
+parser.add_argument('--input_type', type=str, default='frames', choices=['video', 'frames'], help='input types for videos')
 parser.add_argument('--structure', type=str, default='tsn', choices=['tsn', 'imagenet'], help='data structure of output frames')
 parser.add_argument('--base_model', type=str, required=False, default='resnet101', choices=['resnet18', 'resnet34', 'resnet50', 'resnet101', 'resnet152', 'c3d'])
 parser.add_argument('--pretrain_weight', type=str, required=False, default='', help='model weight file path')

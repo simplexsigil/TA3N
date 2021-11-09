@@ -1,11 +1,11 @@
 #!/bin/bash
 
 #====== parameters ======#
-dataset=hmdb_ucf # hmdb_ucf | hmdb_ucf_small | ucf_olympic
-class_file='data/classInd_'$dataset'.txt'
+dataset=Sims4Action # hmdb_ucf | hmdb_ucf_small | ucf_olympic
+class_file=/export/md0/dataset/Sims4Action/list_Sims4Action_ps_kinetics-feature_-1.txt  # 'data/classInd_'$dataset'.txt'
 training=true # true | false
 testing=false # true | false
-modality=RGB 
+modality=RGB
 frame_type=feature # frame | feature
 num_segments=5 # sample frame # of each video for training
 test_segments=5
@@ -25,14 +25,14 @@ else
 fi
 
 #====== select dataset ======#
-path_data_root=/home/mchen2/dataset/ # depend on users
-path_exp_root=action-experiments/ # depend on users
+path_data_root=/export/md0/dataset/ # depend on users
+path_exp_root=/export/md0/dataset/da_experiments/ # depend on users
 
 if [ "$dataset" == "hmdb_ucf" ] || [ "$dataset" == "hmdb_ucf_small" ] ||[ "$dataset" == "ucf_olympic" ]
 then
-	dataset_source=ucf101 # depend on users
-	dataset_target=hmdb51 # depend on users
-	dataset_val=hmdb51 # depend on users
+	dataset_source=Sims4Action # depend on users
+	dataset_target=toyota-smarthome # depend on users
+	dataset_val=Sims4Action # depend on users
 	num_source=1438 # number of training data (source) 
 	num_target=840 # number of training data (target)
 

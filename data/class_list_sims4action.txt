@@ -1,0 +1,10 @@
+0 Cook
+1 Drink
+2 Eat
+3 GetupSitdown
+4 Readbook
+5 Usecomputer
+6 Usephone
+7 Usetablet
+8 Walk
+9 WatchTV
