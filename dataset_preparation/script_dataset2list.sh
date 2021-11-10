@@ -1,9 +1,9 @@
 #!/bin/bash
 # ----------------------------------------------------------------------------------
 # variable
-dataset=Sims4Action # # depend on users (e.g. hmdb51 | ucf101 | xxx_train | xxx_val) 
-data_path=/export/md0/dataset/ # depend on users
-video_in=../../../../cvhci/data/activity/Sims4Action/videos
+dataset=adl # # depend on users (e.g. hmdb51 | ucf101 | xxx_train | xxx_val)
+data_path=/media/david/damysus/datasets/adl/ # depend on users
+video_in=mp4
 frame_in=RGB-feature_resnet101
 max_num=-1 # 0 (class average) | -1 (all) | any number
 random_each_video=N # Y | N
@@ -16,10 +16,10 @@ frame_type=feature # frame | feature
 DA_setting=ps_kinetics # hmdb_ucf | hmdb_phav | ps_kinetics | kinetics_phav | ucf_olympic
 suffix='_'$DA_setting'-'$frame_type'_'$max_num
 
-python video_dataset2list.py $dataset --data_path $data_path \
+echo python video_dataset2list.py $dataset --data_path $data_path \
 --video_in $video_in --frame_in $frame_in --max_num $max_num \
 --class_select --DA_setting $DA_setting --suffix $suffix \
 --random_each_video=$random_each_video --method_read $method_read
 
 #----------------------------------------------------------------------------------
-exit 0
+# exit 0

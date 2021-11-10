@@ -148,7 +148,7 @@ def convert_c3d_tensor_batch(batch_tensor): # e.g. 30x3x112x112 --> 15x3x16x112x
 
 def extract_features(video_file):
 	print(video_file)
-	video_name = os.path.splitext(video_file)[0]
+	video_name = ".".join(video_file.split(".")[:-1])
 	if args.structure == 'tsn':  # create the video folder if the data structure is TSN
 		if not os.path.isdir(path_output + video_name + '/'):
 			os.makedirs(path_output + video_name + '/')

@@ -2,7 +2,7 @@
 
 #====== parameters ======#
 dataset=Sims4Action # hmdb_ucf | hmdb_ucf_small | ucf_olympic
-class_file=/export/md0/dataset/Sims4Action/list_Sims4Action_ps_kinetics-feature_-1.txt  # 'data/classInd_'$dataset'.txt'
+class_file=/media/david/damysus/datasets/Sims4Action/list_Sims4Action_ps_kinetics-feature_-1.txt  # 'data/classInd_'$dataset'.txt'
 training=true # true | false
 testing=false # true | false
 modality=RGB
@@ -25,8 +25,8 @@ else
 fi
 
 #====== select dataset ======#
-path_data_root=/export/md0/dataset/ # depend on users
-path_exp_root=/export/md0/dataset/da_experiments/ # depend on users
+path_data_root=/media/david/damysus/datasets # depend on users
+path_exp_root=/media/david/damysus/datasets/da_experiments/ # depend on users
 
 if [ "$dataset" == "hmdb_ucf" ] || [ "$dataset" == "hmdb_ucf_small" ] ||[ "$dataset" == "ucf_olympic" ]
 then
@@ -65,6 +65,16 @@ then
 	train_target_list=$path_data_target'list_'$dataset_target'_'$dataset'-'$frame_type'.txt'
 	val_list=$path_data_val'list_'$dataset_val'_'$dataset'-'$frame_type'.txt'
 
+	path_exp=$path_exp_root'Testexp'
+fi
+
+if [ "$dataset" == "Sims4Action" ]
+then
+  train_source_list="/media/david/damysus/datasets/sims_dataset/list_Sims4Action_ps_kinetics-feature_-1.txt"
+	train_target_list="/media/david/damysus/datasets/adl/list_adl_ps_kinetics-feature_-1.txt"
+	val_list="/media/david/damysus/datasets/adl/list_adl_ps_kinetics-feature_-1.txt"
+	num_source=941
+	num_target=2029
 	path_exp=$path_exp_root'Testexp'
 fi
 
@@ -141,7 +151,7 @@ then
 	gd=20
 	
 	#------ main command ------#
-	python main.py $class_file $modality $train_source_list $train_target_list $val_list --exp_path $exp_path \
+	echo python main.py $class_file $modality $train_source_list $train_target_list $val_list --exp_path $exp_path \
 	--arch $arch --pretrained $pretrained --baseline_type $baseline_type --frame_aggregation $frame_aggregation \
 	--num_segments $num_segments --val_segments $val_segments --add_fc $add_fc --fc_dim $fc_dim --dropout_i 0.5 --dropout_v 0.5 \
 	--use_target $use_target --share_params $share_params \
@@ -163,7 +173,7 @@ then
 
 	# testing on the validation set
 	echo 'testing on the validation set'
-	python test_models.py $class_file $modality \
+	echo python test_models.py $class_file $modality \
 	$val_list $exp_path$modality'/'$model'.pth.tar' \
 	--arch $arch --test_segments $test_segments \
 	--save_scores $exp_path$modality'/scores_'$dataset_target'-'$model'-'$test_segments'seg' --save_confusion $exp_path$modality'/confusion_matrix_'$dataset_target'-'$model'-'$test_segments'seg' \
