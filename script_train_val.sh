@@ -2,7 +2,7 @@
 
 #====== parameters ======#
 dataset=Sims4Action # hmdb_ucf | hmdb_ucf_small | ucf_olympic
-class_file=/media/david/damysus/datasets/Sims4Action/list_Sims4Action_ps_kinetics-feature_-1.txt  # 'data/classInd_'$dataset'.txt'
+class_file=data/class_list_adl.txt  # 'data/classInd_'$dataset'.txt'
 training=true # true | false
 testing=false # true | false
 modality=RGB
