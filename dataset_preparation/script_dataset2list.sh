@@ -2,8 +2,8 @@
 # ----------------------------------------------------------------------------------
 # variable
 dataset=adl # # depend on users (e.g. hmdb51 | ucf101 | xxx_train | xxx_val)
-data_path=/media/david/damysus/datasets/adl/ # depend on users
-video_in=mp4
+data_path=/export/md0/dataset/ # depend on users
+video_in=frames_class_wise
 frame_in=RGB-feature_resnet101
 max_num=-1 # 0 (class average) | -1 (all) | any number
 random_each_video=N # Y | N

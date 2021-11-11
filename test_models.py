@@ -197,6 +197,11 @@ if args.save_attention:
 
 cf = [confusion_matrix(video_labels, video_pred[k], labels=list(range(num_class))) for k in range(max(args.top))]
 
+pca = np.diag(cf[0]) / cf[0].sum(axis=0)
+pca = np.nan_to_num(pca, posinf=0, neginf=0)
+print(pca)
+print(f"mPCA: {np.mean(pca)}")
+print(f"Acc: {sum(np.diag(cf[0]))/np.sum(cf[0])}")
 plot_confusion_matrix(args.save_confusion+'.png', cf[0], classes=class_names, normalize=True,
 					  title='Normalized confusion matrix')
 
