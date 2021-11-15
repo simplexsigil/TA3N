@@ -19,7 +19,7 @@ from PIL import Image
 
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 # imageio.plugins.ffmpeg.download()
 init(autoreset=True)
@@ -148,7 +148,7 @@ def convert_c3d_tensor_batch(batch_tensor): # e.g. 30x3x112x112 --> 15x3x16x112x
 
 def extract_features(video_file):
 	print(video_file)
-	video_name = ".".join(video_file.split(".")[:-1])
+	video_name = video_file # ".".join(video_file.split(".")[:-1])
 	if args.structure == 'tsn':  # create the video folder if the data structure is TSN
 		if not os.path.isdir(path_output + video_name + '/'):
 			os.makedirs(path_output + video_name + '/')

@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #====== parameters ======#
-dataset=Sims4Action # hmdb_ucf | hmdb_ucf_small | ucf_olympic
-class_file=data/class_list_adl.txt  # 'data/classInd_'$dataset'.txt'
-training=true # true | false
-testing=false # true | false
+dataset=hmdb_ucf # hmdb_ucf | hmdb_ucf_small | ucf_olympic
+class_file=data/classInd_hmdb_ucf.txt  # 'data/classInd_'$dataset'.txt'
+training=false # true | false
+testing=true # true | false
 modality=RGB
 frame_type=feature # frame | feature
 num_segments=5 # sample frame # of each video for training
@@ -25,14 +25,14 @@ else
 fi
 
 #====== select dataset ======#
-path_data_root=/media/david/damysus/datasets # depend on users
+path_data_root=~/datasets/ # depend on users
 path_exp_root=/media/david/damysus/datasets/da_experiments/ # depend on users
 
 if [ "$dataset" == "hmdb_ucf" ] || [ "$dataset" == "hmdb_ucf_small" ] ||[ "$dataset" == "ucf_olympic" ]
 then
-	dataset_source=Sims4Action # depend on users
-	dataset_target=toyota-smarthome # depend on users
-	dataset_val=Sims4Action # depend on users
+	dataset_source=ucf101 # depend on users
+	dataset_target=hmdb51 # depend on users
+	dataset_val=ucf101 # depend on users
 	num_source=1438 # number of training data (source) 
 	num_target=840 # number of training data (target)
 
@@ -61,10 +61,10 @@ then
     	dataset_val=$dataset_val'_val'
 	fi
 
-	train_source_list=$path_data_source'list_'$dataset_source'_'$dataset'-'$frame_type'.txt'
-	train_target_list=$path_data_target'list_'$dataset_target'_'$dataset'-'$frame_type'.txt'
-	val_list=$path_data_val'list_'$dataset_val'_'$dataset'-'$frame_type'.txt'
-
+	train_source_list=$path_data_source'list_ucf12_train.txt'  #$path_data_source'list_'$dataset_source'_'$dataset'-'$frame_type'.txt'
+	train_target_list=$path_data_target'list_hmdb12_train.txt'  #'list_'$dataset_target'_'$dataset'-'$frame_type'.txt'
+	val_list=$path_data_source'list_ucf12_test.txt' #  $path_data_val'list_'$dataset_val'_'$dataset'-'$frame_type'.txt'
+	test_list=$path_data_target'list_hmdb12_test.txt'
 	path_exp=$path_exp_root'Testexp'
 fi
 
@@ -174,7 +174,7 @@ then
 	# testing on the validation set
 	echo 'testing on the validation set'
 	echo python test_models.py $class_file $modality \
-	$val_list $exp_path$modality'/'$model'.pth.tar' \
+	$test_list $exp_path$modality'/'$model'.pth.tar' \
 	--arch $arch --test_segments $test_segments \
 	--save_scores $exp_path$modality'/scores_'$dataset_target'-'$model'-'$test_segments'seg' --save_confusion $exp_path$modality'/confusion_matrix_'$dataset_target'-'$model'-'$test_segments'seg' \
 	--n_rnn 1 --rnn_cell LSTM --n_directions 1 --n_ts 5 \

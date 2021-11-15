@@ -1,9 +1,9 @@
 #!/bin/bash
 # ----------------------------------------------------------------------------------
 # variable
-dataset=adl # # depend on users (e.g. hmdb51 | ucf101 | xxx_train | xxx_val)
-data_path=/media/david/damysus/datasets/adl/ # depend on users
-video_in=mp4
+dataset=ucf101 # # depend on users (e.g. hmdb51 | ucf101 | xxx_train | xxx_val)
+data_path=/home/david/datasets/ # depend on users
+video_in=UCF-101
 frame_in=RGB-feature_resnet101
 max_num=-1 # 0 (class average) | -1 (all) | any number
 random_each_video=N # Y | N
@@ -13,7 +13,7 @@ random_each_video=N # Y | N
 # frame: load from the feature folder
 method_read=frame # video | frame
 frame_type=feature # frame | feature
-DA_setting=ps_kinetics # hmdb_ucf | hmdb_phav | ps_kinetics | kinetics_phav | ucf_olympic
+DA_setting=hmdb_ucf # hmdb_ucf | hmdb_phav | ps_kinetics | kinetics_phav | ucf_olympic
 suffix='_'$DA_setting'-'$frame_type'_'$max_num
 
 echo python video_dataset2list.py $dataset --data_path $data_path \
