@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #====== parameters ======#
-dataset=hmdb_ucf # hmdb_ucf | hmdb_ucf_small | ucf_olympic
-class_file=data/classInd_hmdb_ucf.txt  # 'data/classInd_'$dataset'.txt'
+dataset=Sims4Action # hmdb_ucf | hmdb_ucf_small | ucf_olympic
+class_file=data/class_list_sims4action.txt  # 'data/classInd_'$dataset'.txt'
 training=false # true | false
 testing=true # true | false
 modality=RGB
@@ -14,7 +14,7 @@ frame_aggregation=trn-m # method to integrate the frame-level features (avgpool 
 add_fc=1
 fc_dim=512
 arch=resnet101
-use_target=uSv # none | Sv | uSv
+use_target=none # none | Sv | uSv
 share_params=Y # Y | N
 
 if [ "$use_target" == "none" ] 
@@ -25,8 +25,8 @@ else
 fi
 
 #====== select dataset ======#
-path_data_root=~/datasets/ # depend on users
-path_exp_root=/media/david/damysus/datasets/da_experiments/ # depend on users
+path_data_root=/export/md0/dataset/ # depend on users
+path_exp_root=/export/md0/dataset/da_experiments/ # depend on users
 
 if [ "$dataset" == "hmdb_ucf" ] || [ "$dataset" == "hmdb_ucf_small" ] ||[ "$dataset" == "ucf_olympic" ]
 then
@@ -70,11 +70,11 @@ fi
 
 if [ "$dataset" == "Sims4Action" ]
 then
-  train_source_list="/media/david/damysus/datasets/sims_dataset/list_Sims4Action_ps_kinetics-feature_-1.txt"
-	train_target_list="/media/david/damysus/datasets/adl/list_adl_ps_kinetics-feature_-1.txt"
-	val_list="/media/david/damysus/datasets/adl/list_adl_ps_kinetics-feature_-1.txt"
-	num_source=941
-	num_target=2029
+  train_source_list="/export/md0/dataset/Sims4Action/list_sims4action_train.txt"
+	train_target_list="/export/md0/dataset/adl/list_adl_test_sims_actions.txt"
+	val_list="/export/md0/dataset/Sims4Action/list_sims4action_val.txt"
+	num_source=587
+	num_target=4727
 	path_exp=$path_exp_root'Testexp'
 fi
 
@@ -107,7 +107,7 @@ bS=128 # batch size
 bS_2=$((bS * num_target / num_source ))
 echo '('$bS', '$bS_2')'
 
-lr=3e-2
+lr=1e-2
 optimizer=SGD
 
 if [ "$use_target" == "none" ] 
@@ -147,7 +147,7 @@ then
     	lr_adaptive=dann # none | loss | dann
     	lr_steps_1=10
     	lr_steps_2=20
-    	epochs=30
+    	epochs=100
 	gd=20
 	
 	#------ main command ------#
@@ -174,7 +174,7 @@ then
 	# testing on the validation set
 	echo 'testing on the validation set'
 	echo python test_models.py $class_file $modality \
-	$test_list $exp_path$modality'/'$model'.pth.tar' \
+	$train_target_list $exp_path$modality'/'$model'.pth.tar' \
 	--arch $arch --test_segments $test_segments \
 	--save_scores $exp_path$modality'/scores_'$dataset_target'-'$model'-'$test_segments'seg' --save_confusion $exp_path$modality'/confusion_matrix_'$dataset_target'-'$model'-'$test_segments'seg' \
 	--n_rnn 1 --rnn_cell LSTM --n_directions 1 --n_ts 5 \

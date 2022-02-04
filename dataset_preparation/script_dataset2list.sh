@@ -1,9 +1,15 @@
 #!/bin/bash
 # ----------------------------------------------------------------------------------
 # variable
+<<<<<<< HEAD
 dataset=ucf101 # # depend on users (e.g. hmdb51 | ucf101 | xxx_train | xxx_val)
 data_path=/home/david/datasets/ # depend on users
 video_in=UCF-101
+=======
+dataset=adl # # depend on users (e.g. hmdb51 | ucf101 | xxx_train | xxx_val)
+data_path=/export/md0/dataset/ # depend on users
+video_in=frames_class_wise
+>>>>>>> 74ac7a23e01694b508100cacc8082ba7f66f7222
 frame_in=RGB-feature_resnet101
 max_num=-1 # 0 (class average) | -1 (all) | any number
 random_each_video=N # Y | N

@@ -116,7 +116,7 @@ for i in range(len(class_names)):
     print(i, class_names[i])
     list_video = os.listdir(path_video_dataset + class_names[i])
     list_video.sort()
-    list_video_name = [".".join(v.split('.')[0:-1]) for v in list_video]
+    list_video_name = list_video #[".".join(v.split('.')[0:-1]) for v in list_video]
     list_features = os.listdir(path_frame_dataset)
     list_video_name = [vn for vn in list_video_name if vn in list_features]
     id_category = class_id[i]

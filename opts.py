@@ -72,6 +72,7 @@ parser.add_argument('--place_adv', default=['Y', 'Y', 'Y'], type=str, nargs="+",
 parser.add_argument('--pretrain_source', default=False, action="store_true", help='perform source-only training before DA')
 parser.add_argument('--epochs', default=100, type=int, metavar='N',
                     help='number of total epochs to run')
+parser.add_argument('--num_max_iter', type=int, default=0, help='dimension of added fc')
 parser.add_argument('-b', '--batch_size', default=[32, 28, 64], type=int, nargs="+",
                     metavar='N', help='mini-batch size ([source, target, testing])')
 parser.add_argument('--lr', '--learning_rate', default=0.0001, type=float,
@@ -87,7 +88,7 @@ parser.add_argument('--weight_decay', '--wd', default=1e-4, type=float,
 parser.add_argument('--clip_gradient', '--gd', default=20, type=float,
                     metavar='W', help='gradient norm clipping (default: disabled)')
 parser.add_argument('--no_partialbn', '--npb', default=True, action="store_true")
-parser.add_argument('--copy_list', default=['N', 'Y'], type=str, nargs="+",
+parser.add_argument('--copy_list', default=['Y', 'N'], type=str, nargs="+",
                     metavar='N', help='duplicate data in case the dataset is relatively small ([copy source list, copy target list])')
 
 # ========================= Monitor Configs ==========================
